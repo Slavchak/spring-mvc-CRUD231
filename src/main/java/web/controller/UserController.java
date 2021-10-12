@@ -30,16 +30,16 @@ public class UserController {
     public String createUserForm (ModelMap modelMap) {
         modelMap.addAttribute("user", new User());
         modelMap.addAttribute("title", "Add new User");
-        return "user-form";
+        return "user-form-add";
     }
 
     @PostMapping("/new-user")
-    public String saveUser (User user) {
+    public String saveUser (@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/users";
     }
 
-    @DeleteMapping("/user-delete/{id}")
+    @GetMapping("/user-delete/{id}")
     public String deleteUser (@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/users";
@@ -50,11 +50,11 @@ public class UserController {
         User user = userService.getById(id);
         modelMap.addAttribute("user", user);
         modelMap.addAttribute("title", "Update User");
-        return "user-form";
+        return "user-form-update";
     }
 
-    @PostMapping("/user-edit")
-    public String updateUser (User user) {
+    @PatchMapping("/user-edit/{id}")
+    public String updateUser (@ModelAttribute("user") User user) {
         userService.update(user);
         return "redirect:/users";
     }

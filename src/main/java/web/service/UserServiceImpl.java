@@ -6,7 +6,6 @@ import web.dao.UserDAO;
 import web.model.User;
 
 import java.util.*;
-import java.lang.Long;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -36,15 +35,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteById(Long id) {
         userDAO.deleteById(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public User update(User user) {
-        User user1 = userDAO.update(user);
-        return user1;
+    @Transactional
+    public void update(User user) {
+         userDAO.update(user);
     }
 }
